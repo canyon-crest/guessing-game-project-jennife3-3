@@ -1,39 +1,73 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <meta charset="utf-8" />
     <title>JavaScript Number Guessing Game</title>
+    <style>
+      body { font-family: Arial, sans-serif; margin: 16px; }
+      #leaderboardContainer { background:#f0f8ff; padding:8px; border-radius:6px; max-width:400px; }
+      #leaderboard li { padding:4px 0; }
+      #guessHistoryContainer { margin-top:8px; max-width:400px; }
+      #msg { padding:8px; background:#fff8dc; border-radius:4px; display:inline-block; }
+      input[type="text"] { padding:6px; }
+      button { margin-left:6px; }
+    </style>
     <script src="script.js" defer></script>
   </head>
   <body>
-  <p id="date"></p>
+    <p id="date"></p>
 
-    <!-- player name input (locked until name entered) -->
+    <h3 id="playerNameLabel">Enter Name to Start</h3>
     <input type="text" id="playerName" placeholder="Enter name">
-    <button id="startBtn" disabled>Start</button>
-    <p id="playerDisplay"></p>
+    <button type="button" id="startBtn">Start</button>
+    <div id="playerDisplay" aria-live="polite"></div>
+    <div id="nameMsg" aria-live="polite" style="margin-top:6px; color:#555;"></div>
 
-
+    <!-- Level selection: each option on its own line -->
     <h3>Level</h3>
-    <input type="radio" name="level" id="e" value="3" checked><label for="e">Easy</label>
-    <input type="radio" name="level" id="m" value="10"><label for="m">Medium</label>
-    <input type="radio" name="level" id="h" value="100"><label for="h">Hard</label>
+    <div id="levelSelection" style="display:block; margin-bottom:8px;">
+      <div><input type="radio" name="level" id="e" value="3" checked><label for="e"> Easy</label></div>
+      <div><input type="radio" name="level" id="m" value="10"><label for="m"> Medium</label></div>
+      <div><input type="radio" name="level" id="h" value="100"><label for="h"> Hard</label></div>
+    </div>
 
     <button id="playBtn">Play</button>
+     <div id="selectLabel" style="margin-top:8px; font-size:1.1em; line-height:1.1;">
+     Select<br> a Level
+   </div>
 
     <h3 id="msg">Select a Level</h3>
-    <input type="text" id="guess">
-    <button id="guessBtn" disabled>Guess</button>
-    <button id="giveUp" disabled>Give Up</button>
+
+    <!-- Guess input on its own line -->
+    <div id="guessInputRow" style="display:block; margin-top:8px;">
+      <label for="guess" style="display:block; margin-bottom:4px;">Input Guess</label>
+      <input type="text" id="guess" placeholder="">
+      <div style="margin-top:6px;">
+        <button id="guessBtn" disabled>Guess</button>
+        <button id="giveUp" disabled>Give Up</button>
+      </div>
+    </div>
+
+    <!-- Tries display on its own line (number and label stacked) -->
+    <div id="triesDisplay" style="display:block; margin-top:12px; line-height:1;">
+      <span id="triesNumber" style="display:block; font-weight:bold; font-size:1.1em;">0</span>
+      <span id="triesLabel" style="display:block; font-size:0.9em; color:#444;">tries</span>
+    </div>
+
+    <!-- Guess history -->
+    <div id="guessHistoryContainer" aria-live="polite" style="margin-top:12px;">
+      <h4>Guess History</h4>
+      <ul id="guessHistory" style="list-style: none; padding-left: 0; margin-top: 0;"></ul>
+    </div>
 
     <h3>Stats</h3>
     <p id="wins">Total wins: 0</p>
-    <p id="avgScore">Average Score: </p>
+    <p id="avgScore">Average Score: -</p>
 
-    <h3>Leaderboard</h3>
-    <ol>
-      <li name="leaderboard">100</li>
-      <li name="leaderboard">100</li>
-      <li name="leaderboard">100</li>
-    </ol>
+    <div id="leaderboardContainer" aria-live="polite">
+      <h4>Leaderboard (Top 3 fastest)</h4>
+      <ul id="leaderboard" style="padding-left: 16px; margin-top: 0;"></ul>
+      <button type="button" id="clearLeaderboardBtn" style="margin-top:8px;">Clear Leaderboard</button>
+    </div>
   </body>
 </html>
